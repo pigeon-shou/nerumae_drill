@@ -1,5 +1,14 @@
-<header class="bg-slate-900 border-b border-slate-800 p-4">
+<header class="bg-slate-900 border-b border-slate-800 p-4 flex items-center justify-between">
+
+  <!-- 左：タイトル -->
   <h1 class="text-lg font-bold text-indigo-400">
     ねるまえドリル
   </h1>
+
+  <!-- 右：ログアウト -->
+  <%= link_to "ログアウト",
+      destroy_user_session_path,
+      data: { turbo_method: :delete },
+      class: "text-sm font-bold text-slate-400 hover:text-indigo-400 transition" %>
+
 </header>

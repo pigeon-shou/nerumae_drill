@@ -1,7 +1,8 @@
 class LearningsController < ApplicationController
-  before_action :authenticate_user!, except: [:index]
+  before_action :authenticate_user!
+  # before_action :move_to_index, only: [:edit, :update, :destroy]
   def index
-    @learnings = Learning.all
+    @learnings = current_user.learnings.order(created_at: :desc)
   end
 
   def new
