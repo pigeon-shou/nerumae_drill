@@ -1,0 +1,5 @@
+<%= form_with model: @learning do |f| %>
+  <%= f.text_area :content %>
+  <%= f.text_field :keyword %>
+  <%= f.submit "覚える" %>
+<% end %>

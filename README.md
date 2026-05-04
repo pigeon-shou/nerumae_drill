@@ -1,24 +1,45 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+| Column              | Type   | Options                  |
+| ------------------- | ------ | ------------------------ |
+| nickname            | string | null: false              |
+| email               | string | null: false unique: true |
+| encrypted_password  | string | null: false              |
+| line_user_id        | string |                          |
+| sleep_time          | time   | null: false              |
 
-* Ruby version
+### Associations
+has_many :learnings, dependent: :destroy
+has_many :reviews, through: :learnings
+<!-- lerningテーブルを通じて、reviewsがuserデータを辿れるよ -->
 
-* System dependencies
+## learnings テーブル 
 
-* Configuration
+| Column          | Type       | Options                        |
+| --------------- | ---------- | ------------------------------ |
+| content         | string     | null: false                    |
+| keyword         | string     |                                |
+| user            | references | null: false, foreign_key: true |
 
-* Database creation
+### Associations
+belongs_to :user
+has_many :reviews, dependent: :destroy
+<!-- reviewsを3形態（0: 想起, 1: 理解, 2: 応用)に分割し管理 -->
 
-* Database initialization
+## reviews テーブル
 
-* How to run the test suite
+| Column       | Type         | Options                        |
+| ------------ | ------------ | ------------------------------ |
+| learning     | references   | null: false, foreign_key: true |
+| review_type  | integer      | null: false                    |
+| scheduled_at | datetime     | null: false                    |
+| status       | integer      | null: false, default: 0        |
 
-* Services (job queues, cache servers, search engines, etc.)
+### Associations
+belongs_to :learning
+<!-- enumで可読性・保守性を上げる -->
 
-* Deployment instructions
 
-* ...
+
