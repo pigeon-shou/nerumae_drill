@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ねるまえドリル - 新規登録</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+            height: 100dvh;
+            overflow-x: hidden;
+        }
+        .form-card {
+            animation: fadeIn 0.4s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 flex flex-col">
+
+    <!-- ヘッダー -->
+    <header class="p-4 bg-white border-b flex items-center shrink-0 shadow-sm">
+        <h1 class="text-lg font-bold text-indigo-600">ねるまえドリル</h1>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main class="flex-grow max-w-md mx-auto w-full px-6 py-8 flex flex-col overflow-y-auto">
+        
+        <div class="text-center mb-8">
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">アカウント作成</h2>
+            <p class="text-sm text-slate-500 font-medium">まずは5分の復習習慣をはじめましょう</p>
+        </div>
+
+        <!-- deviseのform_forを想定したカード -->
+        <div class="bg-white rounded-[32px] p-8 shadow-xl shadow-indigo-100/50 border border-slate-100 form-card">
+            
+            <!-- エラーメッセージ（仮） -->
+            <!-- <div class="bg-red-50 text-red-500 text-xs p-3 rounded-xl mb-6 border border-red-100">
+                メールアドレスは既に使用されています
+            </div> -->
+
+            <form action="#" class="space-y-5">
+                <!-- メールアドレス -->
+                <div class="field">
+                    <label class="block text-xs font-bold text-slate-400 mb-2 ml-1">メールアドレス</label>
+                    <input type="email" placeholder="example@mail.com" class="w-full p-4 rounded-2xl bg-slate-50 border-none ring-1 ring-slate-200 focus:ring-2 focus:ring-indigo-400 outline-none text-base transition-all">
+                </div>
+
+                <!-- ニックネーム -->
+                <div class="field">
+                    <label class="block text-xs font-bold text-slate-400 mb-2 ml-1">ニックネーム</label>
+                    <input type="text" placeholder="名前やあだ名" class="w-full p-4 rounded-2xl bg-slate-50 border-none ring-1 ring-slate-200 focus:ring-2 focus:ring-indigo-400 outline-none text-base transition-all">
+                </div>
+
+                <!-- パスワード -->
+                <div class="field">
+                    <label class="block text-xs font-bold text-slate-400 mb-2 ml-1">パスワード <span class="text-[10px] font-normal">(6文字以上)</span></label>
+                    <input type="password" placeholder="••••••••" class="w-full p-4 rounded-2xl bg-slate-50 border-none ring-1 ring-slate-200 focus:ring-2 focus:ring-indigo-400 outline-none text-base transition-all">
+                </div>
+
+                <!-- パスワード確認 -->
+                <div class="field">
+                    <label class="block text-xs font-bold text-slate-400 mb-2 ml-1">パスワード（確認用）</label>
+                    <input type="password" placeholder="••••••••" class="w-full p-4 rounded-2xl bg-slate-50 border-none ring-1 ring-slate-200 focus:ring-2 focus:ring-indigo-400 outline-none text-base transition-all">
+                </div>
+
+                <!-- 送信ボタン -->
+                <div class="actions pt-4">
+                    <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white text-lg font-bold py-4 rounded-2xl shadow-lg shadow-indigo-200 transition-all active:scale-95">
+                        登録する
+                    </button>
+                </div>
+            </form>
+
+            <!-- リンク集 -->
+            <div class="mt-8 pt-6 border-t border-slate-100 text-center space-y-3">
+                <a href="#" class="block text-sm font-bold text-indigo-600 hover:underline">ログインはこちら</a>
+                <p class="text-[10px] text-slate-400 leading-relaxed">
+                    登録することで、利用規約およびプライバシーポリシーに同意したものとみなされます。
+                </p>
+            </div>
+        </div>
+
+        <div class="mt-8 mb-12 text-center">
+            <button onclick="window.history.back()" class="text-slate-400 hover:text-slate-600 text-sm font-bold">
+                <i class="fas fa-arrow-left mr-1"></i> 戻る
+            </button>
+        </div>
+
+    </main>
+
+</body>
+</html>
