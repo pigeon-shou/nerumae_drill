@@ -1,5 +1,27 @@
-<%= form_with model: @learning do |f| %>
-  <%= f.text_area :content %>
-  <%= f.text_field :keyword %>
-  <%= f.submit "覚える" %>
-<% end %>
+<div class="max-w-md mx-auto p-6">
+
+  <h1 class="text-xl font-bold mb-4">新規作成</h1>
+
+  <div class="bg-white p-6 rounded-2xl shadow space-y-4">
+
+    <%= form_with model: @learning do |f| %>
+
+      <div>
+        <%= f.text_field :content,
+          class: "w-full p-3 border rounded-xl",
+          placeholder: "内容" %>
+      </div>
+
+      <div>
+        <%= f.text_field :keyword,
+          class: "w-full p-3 border rounded-xl",
+          placeholder: "キーワード" %>
+      </div>
+
+      <%= f.submit "保存",
+        class: "w-full bg-indigo-600 text-white p-3 rounded-xl font-bold mt-4" %>
+
+    <% end %>
+
+  </div>
+</div>

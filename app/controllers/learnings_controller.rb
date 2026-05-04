@@ -1,7 +1,7 @@
 class LearningsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   def index
-    
+    @learnings = Learning.all
   end
 
   def new
