@@ -1,27 +1,40 @@
-<div class="max-w-md mx-auto p-6">
+<%= render "shared/header" %>
 
-  <h1 class="text-xl font-bold mb-4">新規作成</h1>
+<div class="min-h-screen bg-slate-950 text-slate-100">
 
-  <div class="bg-white p-6 rounded-2xl shadow space-y-4">
+  <div class="max-w-md mx-auto p-6">
 
-    <%= form_with model: @learning do |f| %>
+    <h1 class="text-xl font-bold mb-6 text-white">
+      新規作成
+    </h1>
 
-      <div>
-        <%= f.text_field :content,
-          class: "w-full p-3 border rounded-xl",
-          placeholder: "内容" %>
-      </div>
+    <!-- カード -->
+    <div class="bg-slate-900 p-6 rounded-2xl shadow-lg border border-slate-800 space-y-4">
 
-      <div>
-        <%= f.text_field :keyword,
-          class: "w-full p-3 border rounded-xl",
-          placeholder: "キーワード" %>
-      </div>
+      <%= form_with model: @learning do |f| %>
 
-      <%= f.submit "保存",
-        class: "w-full bg-indigo-600 text-white p-3 rounded-xl font-bold mt-4" %>
+        <!-- 内容 -->
+        <div>
+          <%= f.text_field :content,
+            class: "w-full p-3 bg-slate-800 text-white border border-slate-700 rounded-xl placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500",
+            placeholder: "内容" %>
+        </div>
 
-    <% end %>
+        <!-- キーワード -->
+        <div>
+          <%= f.text_field :keyword,
+            class: "w-full p-3 bg-slate-800 text-white border border-slate-700 rounded-xl placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500",
+            placeholder: "キーワード" %>
+        </div>
+
+        <!-- ボタン -->
+        <%= f.submit "保存",
+          class: "w-full bg-indigo-600 hover:bg-indigo-500 text-white p-3 rounded-xl font-bold mt-4 transition active:scale-[0.98]" %>
+
+      <% end %>
+
+    </div>
 
   </div>
 </div>
+<%= render "shared/footer" %>
