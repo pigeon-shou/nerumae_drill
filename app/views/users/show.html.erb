@@ -1,0 +1,54 @@
+<%= render "shared/header" %>
+<div class="min-h-screen bg-slate-950 text-white px-4 py-6">
+
+  <div class="max-w-md mx-auto">
+
+    <h1 class="text-xl font-bold mb-4">
+      <%= @user.nickname %>のマイページ
+    </h1>
+    
+    <p class="text-slate-400 mb-6">
+      <%= "email:#{@user.email}" %>
+    </p>
+
+    <%= link_to "プロフィールを編集する",
+      edit_user_registration_path,
+      class: "text-sm text-indigo-400 font-bold hover:underline" %>
+
+    <h2 class="text-lg font-bold mt-6 mb-3">
+      学習一覧
+    </h2>
+
+    <% @learnings.each do |learning| %>
+
+      <div class="bg-slate-900 p-4 rounded-2xl mb-4 border border-slate-800">
+
+        <!-- 内容 -->
+        <p class="mb-4">
+          <%= learning.content %>
+        </p>
+
+        <!-- 🔥 ボタンエリア -->
+        <div class="flex justify-end gap-3 text-sm">
+
+          <!-- 編集 -->
+          <%= link_to "編集",
+              edit_learning_path(learning),
+              class: "px-3 py-1 bg-indigo-600 rounded-lg font-bold hover:bg-indigo-500 transition" %>
+
+          <!-- 削除 -->
+          <%= link_to "削除",
+              learning_path(learning),
+              data: { turbo_method: :delete, turbo_confirm: "削除していい？" },
+              class: "px-3 py-1 bg-red-600 rounded-lg font-bold hover:bg-red-500 transition" %>
+
+        </div>
+
+      </div>
+
+    <% end %>
+
+  </div>
+
+</div>
+<%= render "shared/footer" %>

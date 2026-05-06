@@ -47,8 +47,13 @@
                 <%= learning.content %>
               </h2>
 
-              <p class="text-lg text-slate-400">
-                <%= learning.keyword %>
+              <p class="keyword-toggle cursor-pointer select-none
+                  bg-slate-800 border border-slate-700
+                  text-slate-300 text-center py-3 px-4 rounded-xl
+                  hover:bg-slate-700 active:scale-[0.98]
+                  transition"
+                data-answer="<%= learning.keyword %>">
+                👆答えを見る
               </p>
 
             </div>
