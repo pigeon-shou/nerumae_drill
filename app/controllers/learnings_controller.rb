@@ -1,6 +1,7 @@
 class LearningsController < ApplicationController
+  before_action :set_learning, only: [:show, :edit, :update, :destroy,]
   before_action :authenticate_user!
-  # before_action :move_to_index, only: [:edit, :update, :destroy]
+  before_action :move_to_index, only: [:show, :update, :edit, :destroy]
   def index
     @learnings = current_user.learnings.order(created_at: :desc)
   end
@@ -18,7 +19,34 @@ class LearningsController < ApplicationController
     end
   end
 
+  def show
+  end
+
+  def edit
+  end
+
+  def update
+    if @learning.update(learning_params)
+      redirect_to user_path(current_user)
+    else
+      render :edit, status: :unprocessable_entity   
+    end
+  end
+
+  def destroy
+    @learning.destroy
+    redirect_to user_path(current_user)
+  end
+
   private
+
+  def move_to_index
+    redirect_to root_path unless current_user == @learning.user
+  end
+
+  def set_learning
+    @learning =current_user.learnings.find(params[:id])
+  end 
 
   def learning_params
     params.require(:learning).permit(:content, :keyword).merge(user_id: current_user.id)

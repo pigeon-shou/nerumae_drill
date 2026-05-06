@@ -56,4 +56,21 @@ document.addEventListener("turbo:load", () => {
       </div>
     `;
   }
+
+  const keywords = document.querySelectorAll(".keyword-toggle");
+
+  keywords.forEach((el) => {
+    el.addEventListener("click", () => {
+      const answer = el.dataset.answer;
+
+      // すでに表示済みなら何もしない
+      if (el.dataset.opened === "true") return;
+
+      el.innerText = answer;
+      el.classList.remove("text-slate-400");
+      el.classList.add("text-indigo-400", "font-bold");
+
+      el.dataset.opened = "true";
+    });
+  });
 });
