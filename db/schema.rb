@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_05_04_052846) do
+ActiveRecord::Schema[7.1].define(version: 2026_05_08_020944) do
   create_table "learnings", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "content", null: false
     t.string "keyword"
@@ -18,6 +18,16 @@ ActiveRecord::Schema[7.1].define(version: 2026_05_04_052846) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_learnings_on_user_id"
+  end
+
+  create_table "reviews", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "status", default: 0, null: false
+    t.integer "review_type_id", null: false
+    t.datetime "scheduled_at", null: false
+    t.bigint "learning_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["learning_id"], name: "index_reviews_on_learning_id"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -36,4 +46,5 @@ ActiveRecord::Schema[7.1].define(version: 2026_05_04_052846) do
   end
 
   add_foreign_key "learnings", "users"
+  add_foreign_key "reviews", "learnings"
 end
