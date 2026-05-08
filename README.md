@@ -21,8 +21,8 @@
 ```mermaid id="m8v2px"
 erDiagram
 
-USERS ||--o{ LEARNINGS 
-LEARNINGS ||--|{ REVIEWS 
+USERS ||--o{ LEARNINGS : has_many
+LEARNINGS ||--|{ REVIEWS : has_many
 
 USERS {
   bigint id
