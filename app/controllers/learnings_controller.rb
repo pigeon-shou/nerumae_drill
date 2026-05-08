@@ -9,6 +9,9 @@ class LearningsController < ApplicationController
       .where("scheduled_at <= ?", Time.current)
       .order(:scheduled_at)
       .where.not(review_type_id: 5)
+    if @reviews.empty?
+      redirect_to new_learning_path
+    end
   end
 
   def new
