@@ -13,7 +13,25 @@ class LearningsController < ApplicationController
   def create
     @learning = Learning.new(learning_params)
     if @learning.save
-      redirect_to root_path
+      Review.create(
+      learning_id: @learning.id,
+      review_type_id: 2,
+      scheduled_at: 1.day.from_now
+    )
+
+    Review.create(
+      learning_id: @learning.id,
+      review_type_id: 3,
+      scheduled_at: 3.days.from_now
+    )
+
+    Review.create(
+      learning_id: @learning.id,
+      review_type_id: 4,
+      scheduled_at: 7.days.from_now
+    )
+    redirect_to root_path
+    
     else
       render :new, status: :unprocessable_entity
     end
