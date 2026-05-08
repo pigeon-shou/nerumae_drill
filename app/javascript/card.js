@@ -5,31 +5,43 @@ document.addEventListener("turbo:load", () => {
   const remainingText = document.getElementById("remaining-count");
 
   if (!button) return;
-
+// 進捗制御と
   let current = 0;
   const total = cards.length;
 
   updateProgress();
+// 思い出したクリック
+  button.addEventListener("click", async () => {
 
-  button.addEventListener("click", () => {
-    cards[current].classList.add("hidden");
-
-    current++;
-
-    if (current < total) {
-      cards[current].classList.remove("hidden");
-      updateProgress();
-    } else {
-      showFinish();
+  const currentCard = cards[current];
+  const reviewId = currentCard.dataset.reviewId;
+// railsのraviews#updateを呼ぶ
+  await fetch(`/reviews/${reviewId}`, {
+    method: "PATCH",
+    headers: {
+      "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
+      "Content-Type": "application/json"
     }
   });
+// カード隠す
+  currentCard.classList.add("hidden");
+// 次カード
+  current++;
+
+  if (current < total) {
+    cards[current].classList.remove("hidden");
+    updateProgress();
+  } else {
+    showFinish();
+  }
+});
 
   function updateProgress() {
     const progress = (current / total) * 100;
     progressBar.style.width = `${progress}%`;
     remainingText.innerText = total - current;
   }
-
+// 終了画面
   function showFinish() {
     const container = document.getElementById("quiz-container");
 
@@ -43,16 +55,16 @@ document.addEventListener("turbo:load", () => {
     container.innerHTML = `
       <div class="text-center mt-20">
         <h2 class="text-3xl font-bold text-white mb-4">
-          おつかれさま！！
+          おつかれさま！！👏
         </h2>
-        <p class="text-slate-400 mb-6">
-          今日の復習、完璧です👏
+        <p class="text-slate-400 mb-6 leading-relaxed">
+          次の復習タイミングをお楽しみに🎓
         </p>
 
-        <button onclick="location.reload()"
-          class="bg-indigo-600 text-white px-6 py-3 rounded-xl font-bold">
-          もう一度やる
-        </button>
+        <a href="/learnings/new"
+          class="inline-block bg-indigo-600 text-white px-6 py-3 rounded-xl font-bold">
+          もっと覚える
+        </a>
       </div>
     `;
   }

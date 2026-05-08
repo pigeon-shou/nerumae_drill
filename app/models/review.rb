@@ -9,8 +9,6 @@ class Review < ApplicationRecord
   validates :scheduled_at
   validates :review_type_id
   end
-
-  validates :review_type_id, numericality: { other_than: 1, message: 'を選択してください' }
   
   enum status: {
   waiting: 0,
