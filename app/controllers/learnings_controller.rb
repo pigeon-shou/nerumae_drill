@@ -3,7 +3,12 @@ class LearningsController < ApplicationController
   before_action :authenticate_user!
   before_action :move_to_index, only: [:show, :update, :edit, :destroy]
   def index
-    @learnings = current_user.learnings.order(created_at: :desc)
+    @reviews = current_user.reviews
+      .includes(:learning)
+      # DBから条件付きデータ取得
+      .where("scheduled_at <= ?", Time.current)
+      .order(:scheduled_at)
+      .where.not(review_type_id: 5)
   end
 
   def new
@@ -13,23 +18,29 @@ class LearningsController < ApplicationController
   def create
     @learning = Learning.new(learning_params)
     if @learning.save
+
       Review.create(
-      learning_id: @learning.id,
-      review_type_id: 2,
-      scheduled_at: 1.day.from_now
-    )
+        learning_id: @learning.id,
+        review_type_id: 1,
+        scheduled_at: Time.current
+      )
+      # Review.create(
+      #   learning_id: @learning.id,
+      #   review_type_id: 2,
+      #   scheduled_at: 1.day.from_now
+      # )
 
-    Review.create(
-      learning_id: @learning.id,
-      review_type_id: 3,
-      scheduled_at: 3.days.from_now
-    )
+      # Review.create(
+      #   learning_id: @learning.id,
+      #   review_type_id: 3,
+      #   scheduled_at: 3.days.from_now
+      # )
 
-    Review.create(
-      learning_id: @learning.id,
-      review_type_id: 4,
-      scheduled_at: 7.days.from_now
-    )
+      # Review.create(
+      #   learning_id: @learning.id,
+      #   review_type_id: 4,
+      #   scheduled_at: 7.days.from_now
+      # )
     redirect_to root_path
     
     else
