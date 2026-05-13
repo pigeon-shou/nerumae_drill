@@ -6,10 +6,37 @@
     <h1 class="text-xl font-bold mb-4">
       <%= @user.nickname %>のマイページ
     </h1>
-    
-    <p class="text-slate-400 mb-6">
-      <%= "email:#{@user.email}" %>
-    </p>
+
+    <!-- ユーザー情報エリア（追加） -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 mb-6 space-y-3">
+
+      <!-- email -->
+      <p class="text-slate-400 text-sm">
+        email: <%= @user.email %>
+      </p>
+
+      <!-- sleep_time（存在する場合のみ表示） -->
+      <% if @user.sleep_time.present? %>
+        <p class="text-slate-400 text-sm">
+          就寝時間：
+          <span class="text-white font-bold">
+            <%= @user.sleep_time.strftime("%H:%M") %>
+          </span>
+        </p>
+      <% end %>
+
+      <p class="text-sm text-slate-400 mb-3">
+        LINEで友だち追加後、「連携」と送ってください
+      </p>
+
+      <!-- LINE連携ボタン（仮URL） -->
+      <div>
+        <%= link_to "LINEを連携する",
+            "https://lin.ee/PxNw3qo",
+            class: "inline-block w-full text-center bg-green-500 hover:bg-green-400 text-white font-bold py-2 rounded-xl transition" %>
+      </div>
+
+    </div>
 
     <%= link_to "プロフィールを編集する",
       edit_user_registration_path,
@@ -28,15 +55,13 @@
           <%= learning.content %>
         </p>
 
-        <!-- 🔥 ボタンエリア -->
+        <!-- ボタンエリア -->
         <div class="flex justify-end gap-3 text-sm">
 
-          <!-- 編集 -->
           <%= link_to "編集",
               edit_learning_path(learning),
               class: "px-3 py-1 bg-indigo-600 rounded-lg font-bold hover:bg-indigo-500 transition" %>
 
-          <!-- 削除 -->
           <%= link_to "削除",
               learning_path(learning),
               data: { turbo_method: :delete, turbo_confirm: "削除していい？" },

@@ -74,3 +74,5 @@ end
 
 gem 'devise'
 gem 'active_hash'
+gem 'line-bot-api'
+gem 'whenever', require: false

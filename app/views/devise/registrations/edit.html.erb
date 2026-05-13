@@ -55,6 +55,15 @@
               placeholder: "••••••••" %>
         </div>
 
+        <!-- sleep time -->
+        <div>
+          <%= f.label :sleep_time, "就寝時間", class: "text-xs text-slate-400" %>
+          <p class="text-[10px] text-slate-400 mb-1">通知を受け取りたい時間を設定してください</p>
+
+          <%= f.time_field :sleep_time, step:60, 
+              class: "w-full p-4 rounded-2xl bg-slate-50 border ring-1 ring-slate-200 focus:ring-2 focus:ring-indigo-400" %>
+        </div>    
+
         <!-- current password -->
         <div>
           <%= f.label :current_password, class: "text-xs text-slate-400" %>
