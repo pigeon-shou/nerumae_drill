@@ -1,40 +1,40 @@
 namespace :line do
-  desc "復習時間になったらLINE通知"
-
-  # TODO: 通知機能調整中
+  desc "復習時間になったらLINE通知を送る"
   task notify: :environment do
-    puts "LINE通知機能は現在停止中です"
-
-    # 通知処理は後日実装予定
-    next
-
     client = Line::Bot::V2::MessagingApi::ApiClient.new(
       channel_access_token: Rails.application.credentials.line[:channel_token]
     )
 
     now = Time.current
+    today = now.to_date
 
     User.where.not(line_user_id: nil).find_each do |user|
+      # 睡眠時間が未設定ならスキップ
       next if user.sleep_time.blank?
 
-      puts "NOW: #{now.strftime("%H:%M")}"
-      puts "SLEEP: #{user.sleep_time.strftime("%H:%M")}"
-      puts "CHECK: #{user.sleep_time.strftime("%H:%M")} vs #{now.strftime("%H:%M")}"
-      puts "LINE SEND START: #{user.id}"
+      # 今日すでに通知済みならスキップ
+      next if user.last_notified_at&.to_date == today
 
-      # 時間判定調整予定,trueだと動くAPIとの通信問題なし、条件式の問題
-      if true
-        request = Line::Bot::V2::MessagingApi::PushMessageRequest.new(
+      # ユーザーの指定時刻を今日の日時として組み立てる
+      notify_time = now.change(
+        hour: user.sleep_time.hour,
+        min:  user.sleep_time.min,
+        sec:  0
+      )
+
+      # 指定時刻の±5分以内でなければスキップ
+      next unless now.between?(notify_time - 5.minutes, notify_time + 5.minutes)
+
+      # 通知を送る
+      client.push_message(
+        push_message_request: Line::Bot::V2::MessagingApi::PushMessageRequest.new(
           to: user.line_user_id,
-          messages: [
-            { type: "text", text: "復習の時間です！" }
-          ]
+          messages: [{ type: "text", text: "復習の時間です！" }]
         )
+      )
 
-        client.push_message(push_message_request: request)
-
-        puts "SENT TO: #{user.id}"
-      end
+      # 今日通知済みとして記録
+      user.update!(last_notified_at: today)
     end
   end
 end

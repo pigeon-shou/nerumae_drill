@@ -16,11 +16,15 @@
 # every 4.days do
 #   runner "AnotherModel.prune_old_records"
 # end
-set :output, "log/cron.log"
-set :environment, "development" # 本番なら production
+set :output, { error: "log/cron_error.log", standard: "log/cron.log" }
+set :environment, "development"
 
+job_type :rbenv_rake,
+  'export PATH="$HOME/.rbenv/bin:$HOME/.rbenv/shims:$PATH" && ' \
+  'eval "$(rbenv init -)" && ' \
+  'cd :path && bundle exec rake :task'
 
 every 1.minute do
-  command "cd /Users/murph/nerumae_drill && /bin/bash -l -c 'bundle _2.4.1_ exec rake line:notify'"
+  rbenv_rake "line:notify"
 end
 # Learn more: http://github.com/javan/whenever
