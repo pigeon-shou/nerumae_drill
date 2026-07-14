@@ -14,7 +14,10 @@
       <p class="text-slate-400 text-sm">
         email: <%= @user.email %>
       </p>
-
+      <p class="text-slate-400 text-sm">現在の連続学習日数</p>
+      <p class="text-3xl font-bold text-indigo-400">
+       <%= @user.current_streak %><span class="text-base text-slate-400">日</span>
+      </p>
       <!-- sleep_time（存在する場合のみ表示） -->
       <% if @user.sleep_time.present? %>
         <p class="text-slate-400 text-sm">

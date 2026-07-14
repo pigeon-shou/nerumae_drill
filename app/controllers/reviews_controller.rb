@@ -3,7 +3,7 @@ class ReviewsController < ApplicationController
 
   def update
     @review = current_user.reviews.find(params[:id])
-
+    current_user.study_logs.find_or_create_by(studied_on: Date.current)
     case @review.review_type_id
 
     when 1

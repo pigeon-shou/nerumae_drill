@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_05_12_084648) do
+ActiveRecord::Schema[7.1].define(version: 2026_07_14_080823) do
   create_table "learnings", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "content", null: false
     t.string "keyword"
@@ -28,6 +28,15 @@ ActiveRecord::Schema[7.1].define(version: 2026_05_12_084648) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["learning_id"], name: "index_reviews_on_learning_id"
+  end
+
+  create_table "study_logs", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.date "studied_on", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "studied_on"], name: "index_study_logs_on_user_id_and_studied_on", unique: true
+    t.index ["user_id"], name: "index_study_logs_on_user_id"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -48,4 +57,5 @@ ActiveRecord::Schema[7.1].define(version: 2026_05_12_084648) do
 
   add_foreign_key "learnings", "users"
   add_foreign_key "reviews", "learnings"
+  add_foreign_key "study_logs", "users"
 end
